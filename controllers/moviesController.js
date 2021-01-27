@@ -1,6 +1,7 @@
 let path = require('path')
-/* let sequelize = db.sequelize; */
+
 let db = require(path.resolve('.', 'models', 'index'))
+let sequelize = db.sequelize;
 
 module.exports = {
     //busca todo
@@ -21,62 +22,61 @@ module.exports = {
                 res.render("detalle", { searchById: resultados })
             })
     },
-    /* drama: function (req, res) {
-      db.Peliculas.findAll({
-          //al ser un objeto puedo poner varios filtros
+    animacion: function (req, res) {
+        db.Peliculas.findAll({
+            //al ser un objeto puedo poner varios filtros
+            where: {
+                genre_id: 7,
+            }
+        })
+            .then(function (resultados) {
+                console.log(resultados)
+                res.render('animacion', { resultados })
+            })
+    },
+    //busca y devuelve un solo resultado (el primero que devuelva la condición). Diferencia entre findOne y findAll (limit 1), es que findAll siempre nos va a devolver un array con todos los resultados sea 1 o 20. findOne devuelve un solo objeto con la fila de la base de datos que machee con la query
+    uno: function (req, res) {
+        db.Peliculas.findOne({
+            where: {
+                title: "Toy Story"
+            },
+        })
+            .then(function (resultados) {
+                res.render("filtrado", { resultados })
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    },
+    top: function (req, res) {
+        db.Peliculas.findAll({
+            where: {
+                rating: { [db.Sequelize.Op.gt]: 8 }
+            },
+            order: [
+                ["title", "Asc"]
+            ],
+            limit: 5,
 
-      }
-
-      )
-          .then(function (resultados) {
-              res.render('index', { resultados })
-          })
-  },
-  //busca y devuelve un solo resultado (el primero que devuelva la condición). Diferencia entre findOne y findAll (limit 1), es que findAll siempre nos va a devolver un array con todos los resultados sea 1 o 20. findOne devuelve un solo objeto con la fila de la base de datos que machee con la query
-  uno: function (req, res) {
-      db.Peliculas.findOne({
-          where: {
-              name: "Toy Story"
-          }
-      })
-          .then(function (resultados) {
-              res.render("index", { resultados })
-          })
-          .catch(function (error) {
-              console.log(error)
-          })
-  },
-  top: function (req, res) {
-      db.Peliculas.findAll({
-          where: {
-              rating: {
-                  [db.Sequelize.Op.gt]: 8  //esto sería rating mayor a 8
-              },
-              order: [
-                  ["rating", "DESC"],
-                  ["title", "DESC"]
-              ],
-              limit: 5,
-              offset: 5
-          }
-      })
-          .then(function (resultados) {
-              res.render('index', { resultados })
-          })
-  },
-  total: function (req, res) {
-      db.Peliculas.sum("length")
-          .then(function (resultados) {
-              console.log(resultados)
-          })
-  },
-  query: function (req, res) {
-      sequelize.query(SELECT * FROM movies)
-          .then(function (resultados) {
-              let pelicula = resultados[0]
-              console.log(pelicula)
-          })
-  } */
+            offset: 0
+        })
+            .then(function (resultados) {
+                res.render('top', { resultados })
+            })
+    },
+    total: function (req, res) {
+        db.Peliculas.sum("length")
+            .then(function (resultados) {
+                res.render('total', { resultados })
+            })
+    },
+    query: function (req, res) {
+        sequelize.query("SELECT * FROM movies")
+            .then(function (resultados) {
+                let pelicula = resultados[0]
+                res.render("query", { pelicula })
+            })
+    }
 }
 
 
