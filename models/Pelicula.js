@@ -12,9 +12,22 @@ module.exports = function (sequelize, dataTypes) {
             type: dataTypes.STRING,
             allowNull: false
         },
+        length: {
+            type: dataTypes.INTEGER
+        },
+        awards: {
+            type: dataTypes.INTEGER
+        },
         rating: {
             type: dataTypes.INTEGER
+        },
+        release_date: {
+            type: dataTypes.DATE
+        },
+        genre_id: {
+            type: dataTypes.INTEGER
         }
+
     }
 
     let config = {

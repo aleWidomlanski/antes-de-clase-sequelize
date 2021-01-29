@@ -76,6 +76,52 @@ module.exports = {
                 let pelicula = resultados[0]
                 res.render("query", { pelicula })
             })
+    },
+    add: function (req, res) {
+        res.render('add')
+    },
+    create: function (req, res) {
+        db.Peliculas.create({
+            title: req.body.title,
+            length: req.body.length,
+            awards: req.body.awards,
+            rating: req.body.rating,
+            release_date: req.body.release,
+            create_at: req.body.create,
+            update_at: req.body.update,
+            genre_id: req.body.genre
+        })
+            .then(function (resultados) {
+                res.redirect('/movies')
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    },
+    edit: function (req, res) {
+        res.render('editarPelicula', { resultados: {} })
+    },
+    update: function (req, res) {
+        db.Peliculas.update({
+            title: req.body.title,
+            length: req.body.length,
+            awards: req.body.awards,
+            rating: req.body.rating,
+            release_date: req.body.release,
+            create_at: req.body.create,
+            update_at: req.body.update,
+            genre_id: req.body.genre
+        }, {
+            where: {
+                id: 2
+            }
+        })
+            .then(function (resultado) {
+                res.redirect('/movies')
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
     }
 }
 
