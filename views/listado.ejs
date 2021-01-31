@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
 
-<head>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-</head>
-
-<body>
+  <body>
     <% listado.forEach(element=> { %>
-        <a href="/movies/<%= element.id%> ">
-            <%= element.title %>
-                <br>
-                <% }) %>
-        </a>
-
-</body>
-
+    <a href="/movies/<%= element.id%> ">
+      <%= element.title %>
+      <br />
+      <% }) %>
+    </a>
+  </body>
 </html>

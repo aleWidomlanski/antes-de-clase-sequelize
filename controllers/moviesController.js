@@ -1,27 +1,26 @@
-let path = require('path')
+let path = require('path');
 /* let sequelize = db.sequelize; */
-let db = require(path.resolve('.', 'models', 'index'))
+let db = require(path.resolve('.', 'models', 'index'));
 
 module.exports = {
-    //busca todo
-    list: function (req, res) {
-        db.Peliculas.findAll()
-            .then(function (resultados) {
-                console.log(resultados)
-                res.render('listado', { listado: resultados })
-            })
-            .catch(function (error) {
-                console.log(error)
-            })
-    },
-    //busca por Id
-    detail: function (req, res) {
-        db.Peliculas.findByPk(req.params.id)
-            .then(function (resultados) {
-                res.render("detalle", { searchById: resultados })
-            })
-    },
-    /* drama: function (req, res) {
+  //busca todo
+  list: function (req, res) {
+    db.Peliculas.findAll()
+      .then(function (resultados) {
+        console.log(resultados);
+        res.render('listado', { listado: resultados });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  },
+  //busca por Id
+  detail: function (req, res) {
+    db.Peliculas.findByPk(req.params.id).then(function (resultados) {
+      res.render('detalle', { searchById: resultados });
+    });
+  },
+  /* drama: function (req, res) {
       db.Peliculas.findAll({
           //al ser un objeto puedo poner varios filtros
 
@@ -77,8 +76,4 @@ module.exports = {
               console.log(pelicula)
           })
   } */
-}
-
-
-
-
+};
