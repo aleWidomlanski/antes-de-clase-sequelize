@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
 
-<head>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-</head>
-
-<body>
-
+  <body>
     <%= searchById.title %>
-
-</body>
-
+    <form
+      action="/movies/delete/<%=searchById.id%>?_method=DELETE"
+      method="POST"
+    >
+      <button>Eliminar</button>
+    </form>
+  </body>
 </html>

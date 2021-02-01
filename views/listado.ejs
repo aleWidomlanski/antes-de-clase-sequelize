@@ -5,11 +5,20 @@
   </head>
 
   <body>
-    <% listado.forEach(element=> { %>
-    <a href="/movies/<%= element.id%> ">
-      <%= element.title %>
-      <br />
-      <% }) %>
+   
+    <a href="/movies/<%= element.id%> "> 
+    
+      <% listado.forEach(element=> { %>
+        <% if (element.generos) { %> 
+           <%= element.title%> - <%= element.generos.name %>
+        <br />
+        <% }) %> 
+      <% } %>
+    
+    
+    
+    
+    
     </a>
   </body>
 </html>

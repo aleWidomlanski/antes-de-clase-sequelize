@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+    <h1>Editar Pelicula</h1>
+
+
+    <form action="/movies/edit/?_method=PUT" method="POST">
+        <label for="title">Titulo de Pelicula</label>
+        <input type="text" name="title" id="title" value="<%= resultados.title  %> ">
+        <br>
+        <label for="length">Duración de Pelicula</label>
+        <input type="text" name="length" id="length" value="<%= resultados.length  %>">
+        <br>
+        <label for=" awards">Premios</label>
+        <input type="text" name="awards" id="awards" value="<%= resultados.awards  %> ">
+        <br>
+        <label for="rating">Rating</label>
+        <input type="text" name="rating" id="rating" value="<%= resultados.rating  %> ">
+        <br>
+        <label for="release">Release_date</label>
+        <input type="date" name="release" id="release">
+        <br>
+        <!--         <label for="create">Create_at</label>
+        <input type="date" name="create" id="create" value="<%= resultados.create  %> ">
+        <br>
+        <label for="update">Update_at</label>
+        <input type="date" name="update" id="update" value="<%= resultados.update  %> ">
+        <br> -->
+        <label for="genre">genre_id</label>
+        <input type="text" name="genre" id="genre" value="<%= resultados.genre_id  %> ">
+        <button type="submit">Agregar</button>
+    </form>
+</body>
+
+</html>
