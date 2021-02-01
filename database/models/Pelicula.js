@@ -20,19 +20,21 @@ module.exports = function (sequelize, dataTypes) {
     },
     rating: {
       type: dataTypes.INTEGER,
+      allowNull: false,
     },
     release_date: {
       type: dataTypes.DATE,
+      allowNull: false,
     },
     genre_id: {
       type: dataTypes.INTEGER,
     },
     created_at: {
-        type: dataTypes.INTEGER,
-      },
-      update_at: {
-        type: dataTypes.INTEGER,
-      },
+      type: dataTypes.DATE,
+    },
+    updated_at: {
+      type: dataTypes.DATE,
+    },
   };
 
   let config = {
@@ -42,21 +44,14 @@ module.exports = function (sequelize, dataTypes) {
 
   const Pelicula = sequelize.define(alias, columns, config);
 
-  console.log(Pelicula)
-
- Pelicula.associate = function (models) {
-    Pelicula.belongsTo(models.Genero, {
+  Pelicula.associate = function (models) {
+    Pelicula.belongsTo(models.Generos), {
       as: 'generos',
-      foreignKey: 'genre_id',
-    });
-    Pelicula.belongsToMany(models.Actor, {
-      as: "Actors",
-      throught: "actor_movie",
-      foreignKey: 'movie_id',
-      otherKey: "actor_id",
-      timestamps: true
-    }) 
-  }; 
+      foreignKey: 'genre_id'
+    }
+  }
+
+
 
   return Pelicula;
 };

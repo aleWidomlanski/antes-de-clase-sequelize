@@ -1,17 +1,17 @@
 let path = require('path');
 
-let db = require(path.resolve('.', 'models', 'index'));
+let db = require(path.resolve('database', 'models', 'index'));
 let sequelize = db.sequelize;
 
 module.exports = {
   //busca todo
   list: function (req, res) {
     db.Peliculas.findAll({
-      include: [{ association: 'generos' }, {association: 'actores'}],
     })
       .then(function (resultados) {
         console.log(resultados);
-        res.render('listado', { listado: resultados });
+        res.send("peliculas")
+        // res.render('listado', { listado: resultados });
       })
       .catch(function (error) {
         console.log(error);

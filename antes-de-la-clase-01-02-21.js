@@ -190,31 +190,31 @@ Para setear esto va a ser necesario, luego de la declaración del modelo Pelicul
 
 
 const Sequelize = require('sequelize');
-const sequelize = require('../database'); 
+const sequelize = require('../database');
 const Genero = require('model/genero.js');
 
-const Pelicula = sequelize.define('peliculas',{
-    titulo: Sequelize.STRING,
-    genero_id: Sequelize.INTEGER,
+const Pelicula = sequelize.define('peliculas', {
+  titulo: Sequelize.STRING,
+  genero_id: Sequelize.INTEGER,
 });
 
 
 const Sequelize = require('sequelize');
-const sequelize = require('../database'); 
+const sequelize = require('../database');
 const Genero = require('model/genero.js');
 
-const Pelicula = sequelize.define('peliculas',{
-    titulo: Sequelize.STRING,
-    genero_id: Sequelize.INTEGER,
+const Pelicula = sequelize.define('peliculas', {
+  titulo: Sequelize.STRING,
+  genero_id: Sequelize.INTEGER,
 });
 
 
 
-     Pelicula.belongsTo(Genero, 
-      {
-        foreignKey:"genero_id",
-        as: "genero"
-      })
+Pelicula.belongsTo(Genero,
+  {
+    foreignKey: "genero_id",
+    as: "genero"
+  })
 
 
 module.exports = Pelicula;
@@ -230,18 +230,18 @@ Para la configuración de la relación el foreignKey va a ser la columna llamada
 
 
 const Sequelize = require('sequelize');
-const sequelize = require('../database'); 
+const sequelize = require('../database');
 const Pelicula = require('model/pelicula.js');
 
-const Genero = sequelize.define('generos',{
-    nombre: Sequelize.STRING,
+const Genero = sequelize.define('generos', {
+  nombre: Sequelize.STRING,
 });
 
-Genero.hasMany(Pelicula, 
-      {
-        foreignKey:"genero_id",
-        as: "peliculas"
-      })
+Genero.hasMany(Pelicula,
+  {
+    foreignKey: "genero_id",
+    as: "peliculas"
+  })
 
 module.exports = Genero;
 
@@ -263,9 +263,9 @@ const Pelicula = require('model/pelicula.js');
 Pelicula.findByPk(1, {
   include: ["genero"]
 })
-.then(function (pelicula) {
-  console.log(pelicula.genero.nombre)
-})
+  .then(function (pelicula) {
+    console.log(pelicula.genero.nombre)
+  })
 
 
 
@@ -283,28 +283,69 @@ Por úlitmo, el método create va recibir como segundo parámetro un JSON con el
 
 
 const Sequelize = require('sequelize');
-const sequelize = require('../database'); 
+const sequelize = require('../database');
 
-const Usuario = sequelize.define('usuarios',{
-    nombre: Sequelize.STRING,
-    apellido: Sequelize.STRING,
+const Usuario = sequelize.define('usuarios', {
+  nombre: Sequelize.STRING,
+  apellido: Sequelize.STRING,
 });
 
-const Producto = sequelize.define('productos',{
-    nombre: Sequelize.STRING,
-    usuario_id: Sequelize.INTEGER,
+const Producto = sequelize.define('productos', {
+  nombre: Sequelize.STRING,
+  usuario_id: Sequelize.INTEGER,
 });
 
 const Creador = Producto.belongsTo(Usuario, { as: 'creador' });
 
 
 Producto.create({
-    nombre: "Falcon 9",
-    creador: {
-        nombre: 'Elon',
-        apellido: 'Musk'
-    }
+  nombre: "Falcon 9",
+  creador: {
+    nombre: 'Elon',
+    apellido: 'Musk'
+  }
 }, {
-    include: [Creador]
+  include: [Creador]
 })
 
+
+/*
+Peliculas Actor
+En MySQL a la hora de indicar relaciones de muchos a muchos es necesario crear una tabla pivot. Algo similar sucede con sequelize. Para poder relacionar dos modelos a través de la relación belongsToMany primero debemos crear un modelo "pivot".
+
+En este ejemplo queremos relacionar los modelos pelicula y actor. Para ello vamos a crear el modelo PeliculaActor. Como en la creación de todo modelo el primer parámetro es el nombre de la tabla, en este caso: "pelicula_actor". Como segundo parámetro pasamos un JSON las columnas y sus propiedades. Al ser la representación de una tabla pivot va a tener dos columnas "pelicula_id" y "actor_id".
+
+Además de indicar que cada una de estas columnas es un entero debemos setear el parámetro references indicando los atributos model y key. Model va ser con que modelo se relaciona y key a que columna apunta.
+
+Para la columna pelicula_id el model será "Pelicula" y la key "id". Mientras que para la columna actor_id el model será "Actor" y la key "id".
+
+Manos a la obra. */
+
+const Sequelize = require('sequelize');
+const sequelize = require('../database');
+
+
+let PeliculaActor = function (sequelize, dataTypes) {
+
+
+  let alias = "pelicula_actor"
+
+  let cols = {
+    pelicula_id: {
+      type: dataTypes.INTEGER
+    },
+    actor_id: {
+      type: dataTypes.INTEGER
+    }
+  }
+
+
+
+  const PeliculaActor = sequelize.define(alias, cols)
+
+  return PeliculaActor
+
+}
+
+
+module.exports = PeliculaActor;

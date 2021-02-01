@@ -13,12 +13,12 @@ module.exports = function (sequelize, dataTypes) {
     ranking: {
       type: dataTypes.INTEGER,
     },
+    updated_at: {
+      type: dataTypes.DATE,
+    },
     created_at: {
-      type: dataTypes.INTEGER,
-    },
-    update_at: {
-      type: dataTypes.INTEGER,
-    },
+      type: dataTypes.DATE,
+    }
   };
 
   let config = {
@@ -28,17 +28,15 @@ module.exports = function (sequelize, dataTypes) {
 
   const Genero = sequelize.define(alias, columns, config);
 
-console.log(Genero)
 
   Genero.associate = function (models) {
-    Genero.hasMany(models.Pelicula, {
+    Genero.hasMany(models.Peliculas), {
       as: 'peliculas',
-      foreignKey: 'genre_id',
-    });
-  };
+      foreignKey: 'genre_id'
+    }
+  }
 
 
-  
 
 
   return Genero;
