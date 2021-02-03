@@ -6,11 +6,12 @@
 </head>
 
 <body>
-
-
-
-
-
+  <% listado.forEach(element=> { %>
+    <a href="/movies/<%=element.id%>">
+      <%= element.title %>
+        <br>
+    </a>
+    <% }) %>
 </body>
 
 </html>

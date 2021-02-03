@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+    
+        <% resultado.forEach(element=> { %>
+      <h2> <%= element.name %>:</h2> 
+      - <% element.peli.forEach(elementPeli => { %>
+            <%= elementPeli.title%> -
+       <% }) %> 
+       <br>
+        <% }) %>
+     
+
+     
+
+
+
+</body>
+
+</html>

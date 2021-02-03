@@ -6,12 +6,9 @@ let sequelize = db.sequelize;
 module.exports = {
   //busca todo
   list: function (req, res) {
-    db.Peliculas.findAll({
-    })
+    db.Peliculas.findAll()
       .then(function (resultados) {
-        console.log(resultados);
-        res.send("peliculas")
-        // res.render('listado', { listado: resultados });
+        res.render('listado', { listado: resultados });
       })
       .catch(function (error) {
         console.log(error);
@@ -82,8 +79,6 @@ module.exports = {
       awards: req.body.awards,
       rating: req.body.rating,
       release_date: req.body.release,
-      create_at: req.body.create,
-      update_at: req.body.update,
       genre_id: req.body.genre,
     })
       .then(function (resultados) {
@@ -94,7 +89,14 @@ module.exports = {
       });
   },
   edit: function (req, res) {
-    res.render('editarPelicula', { resultados: {} });
+    db.Peliculas.findByPk(req.params.id)
+      .then(function (resultado) {
+        res.render('editarPelicula', { resultados: resultado });
+      })
+      .catch(function (err) {
+        console.log(err)
+      })
+
   },
   update: function (req, res) {
     db.Peliculas.update(
@@ -104,8 +106,6 @@ module.exports = {
         awards: req.body.awards,
         rating: req.body.rating,
         release_date: req.body.release,
-        create_at: req.body.create,
-        update_at: req.body.update,
         genre_id: req.body.genre,
       },
       {
@@ -134,4 +134,50 @@ module.exports = {
         console.log(error);
       });
   },
+  relacionPeliGenero: function (req, res) {
+    db.Peliculas.findAll({
+      include: "Gene"
+    })
+      .then(function (resultado) {
+        console.log(resultado)
+        res.render('peliculas-genero', { resultado })
+      })
+      .catch(function (err) {
+        console.log(err)
+      })
+  },
+  relacionGeneroPelis: function (req, res) {
+    db.Generos.findAll({
+      include: "peli"
+    })
+      .then(function (resultado) {
+        res.render('genero-pelis', { resultado })
+      })
+      .catch(function (err) {
+        console.log(err)
+      })
+  },
+
+  relacionPeliActores : function (req, res) {
+      db.Peliculas.findByPk(req.params.id, {
+        include : ["Gene", "Acto"]
+      })
+      .then(function(resultado) {
+        res.render("peliculas-actores", {resultado}) 
+      })
+      .catch(function(err) {
+        console.log(err)
+      })
+  },
+  relacionActoresEnPelis: function(req, res) {
+    db.Actores.findByPk(req.params.id, {
+      include: ["Peli"]
+    })
+    .then(function(resultado) {
+      res.render('actores-peliculas', {resultado})
+    })
+    .catch(function(err){
+      console.log(err)
+    })
+  }
 };

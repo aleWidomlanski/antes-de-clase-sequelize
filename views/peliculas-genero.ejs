@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+   
+        <% resultado.forEach(element=> { %>
+        <h3><%= element.title %> - 
+            <% if (element.Gene) { %>
+            <span style="color: rgb(72, 248, 160);"><%= element.Gene.name %></span>
+        <% } %>
+        </h3>
+        <% }) %>
+
+</body>
+
+</html>

@@ -11,13 +11,14 @@ router.get('/totalTime', moviesController.total);
 router.get('/query', moviesController.query);
 router.get('/add', moviesController.add);
 router.post('/create', moviesController.create);
-router.get('/edit', moviesController.edit);
+router.get('/pelis-genero', moviesController.relacionPeliGenero);
+router.get('/genero-pelis', moviesController.relacionGeneroPelis);
+router.get('/pelis-actores/:id', moviesController.relacionPeliActores)
+router.get('/actores-pelis/:id', moviesController.relacionActoresEnPelis)
+router.get('/edit/:id', moviesController.edit);
 router.get('/:id', moviesController.detail);
-router.put('/edit/', moviesController.update);
+router.put('/edit/:id', moviesController.update);
 router.delete('/delete/:id', moviesController.delete);
-/* ;
-;
 
 
-*/
 module.exports = router;

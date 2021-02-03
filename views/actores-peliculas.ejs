@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+   
+
+<% if (resultado != undefined) { %>
+    <h1>Actor: <%=resultado.first_name %> <%=resultado.last_name %></h1>
+<% } else { %>
+    <h2>No existe ese Actor</h2>
+    <% } %> 
+
+<br>
+<br>
+
+<h2>Películas: 
+    
+    <br>
+
+    <% if (resultado != undefined) { %>
+        <% resultado.Peli.forEach( element => { %>
+            <%=element.title %>
+            <br>
+        <% }) %>
+    <% } else { %>
+        <h2>No existe esa Pelicula</h2>
+        <% } %> 
+
+</h2>
+
+
+
+
+
+
+   
+
+
+</body>
+
+</html>

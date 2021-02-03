@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+
+
+    <% if (resultado != undefined) { %>    
+    <h1><%= resultado.title  %> </h1>
+    <% } %>
+    
+
+    <br>
+
+
+
+    <% if (resultado != undefined) { %>
+     <h2>Genero: <%= resultado.Gene.name%></h2>
+    <% } %>
+
+
+  <br>
+
+
+    <% if (resultado != undefined) { %>
+        <h2>Actores:</h2>
+        <% resultado.Acto.forEach(element => { %>
+
+            <small>  <%= element.first_name  %> <%= element.last_name  %> </small>
+              <br>
+       <% }) %>
+    <% } %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+</body>
+
+</html>

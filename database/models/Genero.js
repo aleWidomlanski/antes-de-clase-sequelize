@@ -1,3 +1,5 @@
+const Pelicula = require("./Pelicula");
+
 module.exports = function (sequelize, dataTypes) {
   let alias = 'Generos';
 
@@ -6,36 +8,36 @@ module.exports = function (sequelize, dataTypes) {
       primaryKey: true,
       autoIncrement: true,
       type: dataTypes.INTEGER,
+      allowNull: false
     },
     name: {
       type: dataTypes.STRING,
+      allowNull: false
     },
     ranking: {
       type: dataTypes.INTEGER,
-    },
-    updated_at: {
-      type: dataTypes.DATE,
-    },
-    created_at: {
-      type: dataTypes.DATE,
+      allowNull: false
     }
   };
 
   let config = {
     tableName: 'genres',
     timeStamps: true,
+    createdAt: "created_at",
+    updatedAt: "updated_at",
+    deletedAt: "deleted_at"
+
   };
 
   const Genero = sequelize.define(alias, columns, config);
 
 
   Genero.associate = function (models) {
-    Genero.hasMany(models.Peliculas), {
-      as: 'peliculas',
-      foreignKey: 'genre_id'
-    }
+    Genero.hasMany(models.Peliculas, {
+      as: "peli",
+      foreignKey: "genre_id"
+    })
   }
-
 
 
 

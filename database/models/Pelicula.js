@@ -7,6 +7,7 @@ module.exports = function (sequelize, dataTypes) {
       primaryKey: true,
       autoIncrement: true,
       type: dataTypes.INTEGER,
+      allowNull: false
     },
     title: {
       type: dataTypes.STRING,
@@ -17,6 +18,7 @@ module.exports = function (sequelize, dataTypes) {
     },
     awards: {
       type: dataTypes.INTEGER,
+      allowNull: false,
     },
     rating: {
       type: dataTypes.INTEGER,
@@ -28,27 +30,33 @@ module.exports = function (sequelize, dataTypes) {
     },
     genre_id: {
       type: dataTypes.INTEGER,
-    },
-    created_at: {
-      type: dataTypes.DATE,
-    },
-    updated_at: {
-      type: dataTypes.DATE,
-    },
+    }
   };
 
   let config = {
     tableName: 'movies',
     timestamps: true,
+    createdAt: "created_at",
+    updatedAt: "updated_at",
+    deletedAt: "deleted_at"
   };
+
 
   const Pelicula = sequelize.define(alias, columns, config);
 
   Pelicula.associate = function (models) {
-    Pelicula.belongsTo(models.Generos), {
-      as: 'generos',
-      foreignKey: 'genre_id'
-    }
+    Pelicula.belongsTo(models.Generos, {
+      as: "Gene",
+      foreignKey: "genre_id"
+    })
+
+    Pelicula.belongsToMany(models.Actores, {
+      as:'Acto',
+      through: 'actor_movie',
+      foreignKey: 'movie_id',
+      otherKey: 'actor_id',
+      timestamps: false
+    })
   }
 
 
