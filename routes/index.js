@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
+var apiController = require('../controllers/apiController')
+
+
+
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get('/', apiController.pruebaAxios);
 
 module.exports = router;

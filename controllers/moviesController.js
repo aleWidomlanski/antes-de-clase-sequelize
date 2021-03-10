@@ -1,7 +1,10 @@
 let path = require('path');
 
+
 let db = require(path.resolve('database', 'models', 'index'));
 let sequelize = db.sequelize;
+
+
 
 module.exports = {
   //busca todo
@@ -179,5 +182,6 @@ module.exports = {
     .catch(function(err){
       console.log(err)
     })
-  }
+  },
+
 };
